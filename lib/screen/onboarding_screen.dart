@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitly/screen/sign_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -13,9 +14,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned.fill(
-            child: Image.asset("assets/bg.png", fit: BoxFit.cover),
-          ),
+          Positioned.fill(child: Image.asset("assets/bg.png", height: 90)),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -38,16 +37,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(50),
-                    onTap: () {},
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/arrow-right-click.png',
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.cover,
-                      ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignScreen(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(16),
+                      backgroundColor: Colors.white,
+                      elevation: 4,
+                    ),
+                    child: Image.asset(
+                      'assets/arrow-right-click.png',
+                      width: 60,
+                      height: 60,
                     ),
                   ),
                   SizedBox(height: 40),
