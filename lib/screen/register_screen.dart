@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitly/screen/dashboard_a_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -7,7 +8,11 @@ class RegisterScreen extends StatefulWidget {
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
+String? selectedGender;
+String? selectedCountry;
+
 class _RegisterScreenState extends State<RegisterScreen> {
+  late final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,125 +20,181 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
-          child: Column(
-            children: [
-              SizedBox(height: 5),
-              Image.asset("assets/bg-signin.png", height: 250, width: 250),
-              SizedBox(height: 5),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.black87,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      textAlign: TextAlign.center,
-                      "Account Registration",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    _inputLabel("Full Name"),
-                    _textField(hintText: "Your full name"),
-                    _inputLabel("Email"),
-                    _textField(hintText: "Your email"),
-                    _inputLabel("Gender"),
-                    _textField(hintText: ""),
-                    _inputLabel("Password"),
-                    _textField(hintText: "Your password", isPassword: true),
-                    _inputLabel("Confirm Password"),
-                    _textField(
-                      hintText: "Confirm your password",
-                      isPassword: true,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Forgot password?",
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        child: Text(
-                          "Register",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                SizedBox(height: 5),
+                Image.asset("assets/bg-signin.png", height: 250, width: 250),
+                SizedBox(height: 5),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.black87,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        textAlign: TextAlign.center,
+                        "Account Registration",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        child: Text(
-                          "Login",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
+                      _inputLabel("Full Name"),
+                      _textField(hintText: "Your full name"),
+                      _inputLabel("Email"),
+                      _textField(hintText: "Your email", isRequired: false),
+                      _inputLabel("Gender"),
+                      _dropdownField(
+                        items: ['Gender', 'Laki-laki', 'Perempuan'],
+                        selectedValue: selectedGender,
+                        hint: "Gender",
+                        onChanged: (value) {
+                          setState(() {
+                            selectedGender = value;
+                          });
+                        },
                       ),
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Expanded(child: Divider()),
-                        Text("   or   ", style: TextStyle(color: Colors.white)),
-                        Expanded(child: Divider()),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey[100],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Image.asset("assets/google-logo.png"),
-                            SizedBox(width: 10),
-                            Text(
-                              "Continue with Google",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                              ),
+                      _inputLabel("No. HP"),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: _dropdownField(
+                              items: ['+62', '+60', '+65', '+66'],
+                              selectedValue: selectedCountry,
+                              hint: "Code",
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedCountry = value;
+                                });
+                              },
                             ),
-                          ],
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            flex: 3,
+                            child: _textField(hintText: "Phone number"),
+                          ),
+                        ],
+                      ),
+                      _inputLabel("Password"),
+                      _textField(hintText: "Your password", isPassword: true),
+                      _inputLabel("Confirm Password"),
+                      _textField(
+                        hintText: "Confirm your password",
+                        isPassword: true,
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        "Forgot password?",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      SizedBox(height: 20),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const DashboardAScreen(),
+                                ),
+                              );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                          child: Text(
+                            "Register",
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 10),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _formKey.currentState!.validate();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DashboardAScreen(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                          child: Text(
+                            "Login",
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(child: Divider()),
+                          Text(
+                            "   or   ",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Expanded(child: Divider()),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey[100],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset("assets/google-logo.png"),
+                              SizedBox(width: 10),
+                              Text(
+                                "Continue with Google",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -159,7 +220,11 @@ Widget _inputLabel(String text) {
   );
 }
 
-Widget _textField({String? hintText, bool isPassword = false}) {
+Widget _textField({
+  String? hintText,
+  bool isPassword = false,
+  bool isRequired = true,
+}) {
   return TextFormField(
     obscureText: isPassword,
     decoration: InputDecoration(
@@ -171,5 +236,41 @@ Widget _textField({String? hintText, bool isPassword = false}) {
         borderSide: BorderSide.none,
       ),
     ),
+    validator: (value) {
+      if ((value == null || value.isEmpty) && isRequired) {
+        return "This field is required";
+      }
+      return null;
+    },
+  );
+}
+
+Widget _dropdownField({
+  required List<String> items,
+  String? selectedValue,
+  String? hint,
+  required Function(String?) onChanged,
+}) {
+  return DropdownButtonFormField<String>(
+    value: selectedValue,
+    hint: hint != null ? Text(hint) : null,
+    decoration: InputDecoration(
+      filled: true,
+      fillColor: Colors.white,
+      border: UnderlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide.none,
+      ),
+    ),
+    validator: (value) {
+      if ((value == null || value.isEmpty)) {
+        return "This field is required";
+      }
+      return null;
+    },
+    items: items
+        .map((label) => DropdownMenuItem(value: label, child: Text(label)))
+        .toList(),
+    onChanged: onChanged,
   );
 }
