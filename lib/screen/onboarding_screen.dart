@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitly/screen/sign_screen.dart';
 
+// Stack layout dengan background image + bottom sheet card – good first impression UX! 🎨
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 

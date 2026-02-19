@@ -12,6 +12,8 @@ class DashboardDScreen extends StatefulWidget {
 class _DashboardDScreenState extends State<DashboardDScreen> {
   int _selectedIndex = 0; // Track selected index
 
+  // Habits list hardcoded sebagai final tapi di-add() di line 138 – ini mungkin
+  // crash karena final list di Dart masih bisa di-mutate, tapi data hilang saat rebuild.
   final List<HabitCard> habits = [
     HabitCard(
       title: "Morning Meditation",

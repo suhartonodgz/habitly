@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitly/screen/dashboard_d_screen.dart';
 
+//  Confirmation/success screen yang bersih dan sederhana – good UX flow! ✅
 class DashboardCScreen extends StatefulWidget {
   const DashboardCScreen({super.key});
 

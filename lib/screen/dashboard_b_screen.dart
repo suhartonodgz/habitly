@@ -11,6 +11,7 @@ class DashboardBScreen extends StatefulWidget {
 class _DashboardBScreenState extends State<DashboardBScreen> {
   @override
   Widget build(BuildContext context) {
+    // Variable TimeReminding dimulai huruf kapital – Dart convention menggunakan camelCase untuk variables.
     final TimeReminding = [
       {'Time': '7:00 AM', 'situation': 'Morning'},
       {'Time': '1:00 PM', 'situation': 'Noon'},

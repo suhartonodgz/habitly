@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:habitly/screen/dashboard_a_screen.dart';
 
+// Form registration lengkap dengan dropdown gender & country code – thorough! 📝
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
-
+// selectedGender dan selectedCountry sebagai global variable – ini sangat berbahaya
+// karena state-nya shared antar semua instance RegisterScreen. Pindahkan ke
+// dalam _RegisterScreenState. 🚨
 String? selectedGender;
 String? selectedCountry;
 
@@ -131,6 +134,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
+                            // Login button melakukan _formKey.currentState!.validate() tapi selalu navigasi
+                            // ke DashboardAScreen meskipun validasi gagal – logic error! 🐛
                             _formKey.currentState!.validate();
                             Navigator.push(
                               context,

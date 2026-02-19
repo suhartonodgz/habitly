@@ -132,6 +132,7 @@ class _DashboardAScreenState extends State<DashboardAScreen> {
   }
 }
 
+// HabitCard widget yang reusable dengan GridView.builder – bagus! 👏
 class HabitCard extends StatelessWidget {
   final IconData icon;
   final String label;
