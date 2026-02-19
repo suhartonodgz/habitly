@@ -164,6 +164,7 @@ class _DashboardEScreenState extends State<DashboardEScreen> {
   }
 }
 
+// Commented-out code – sebaiknya dihapus untuk kebersihan kode.
 // Widget reminderButton(String text) {
 //   return ElevatedButton(
 //     style: ElevatedButton.styleFrom(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habitly/screen/register_screen.dart';
 import 'package:habitly/screen/dashboard_d_screen.dart';
 
+// Social login buttons (Google, Apple) + Terms of Service text – complete sign-in UI! 🔐
 class SignScreen extends StatefulWidget {
   const SignScreen({super.key});
 
